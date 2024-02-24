@@ -10,17 +10,17 @@ from pymongo import MongoClient
 class user : 
     def __init__(self , client , db , collection) : 
         self.client = MongoClient(client)
-        self.db = client[db]
+        self.db = self.client[db]
         self.collection = self.db[collection] 
 
-    def insert(self , email , age , about ) : 
+    def insert(self , email , dob , about ) : 
         existing_user = self.collection.find_one({'email': email})
         if(existing_user):
             print("Email Id already exists") 
         else:
             user_doc = {
                 'email': email,
-                'age' : age ,
+                'dob' : dob ,
                 'About' : about , 
                 'quests' : [] , # {'questId' : (idofquest) , 'start_date': () , 'end_date' : (), 'schedule' : () }
                 'pending_requests' : [] ,  # {'questId' : (id_of_quest) , 'request_timestamp' : (datetime) }
