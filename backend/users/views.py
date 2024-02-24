@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
 from .models import User, Cookie
 import json
+from user_mongo import user
 
 def login(request):
     if request.method == 'POST':
@@ -34,5 +35,33 @@ def login(request):
 
 def register(request):
     if request.method == 'POST':
-        data = json.loads(request.body.decode('utf-8'))
-    pass
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            userEmail = data.get('email' , None ) 
+            userPassword = make_password(data.get('password' , None ))
+            first_name = data.get('first_name' , None ) 
+            last_name = data.get('last_name' , None ) 
+            age = data.get('age' , None ) 
+            about = data.get('about' , None )  
+
+            if userEmail == None or userPassword == None or first_name == None or last_name == None or age == None or about == None : 
+                return JsonResponse(status=204, data={'message': 'Something is missing'})
+
+            user = User.objects.filter(email=userEmail).first()
+            
+            if user : 
+                return JsonResponse({'message': 'Email already exists'} , status = 401 )
+            client = "mongodb://localhost:27017/"
+            db =  'Netropolis'
+            collection = 'user_data'
+            manager = user(client=client , db=db , collection=collection) 
+            manager.insert(email=userEmail , age = age , about= about)
+
+            user = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 0 ) 
+            user.save()
+            return JsonResponse(data = {'message' : 'Account Created Successfully.'} , status = 200 )
+       
+        except Exception as e:
+            print(f"An error occured: {e}")
+            JsonResponse({'message': e})
+
