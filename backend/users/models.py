@@ -25,12 +25,13 @@ class Cookie(models.Model):
         return cookie.cookie
     
     @staticmethod
-    def cookie_check(cookie, email):
+    def cookie_check(cookie, userType):
         cookie_obj = Cookie.objects.filter(cookie=cookie).first()
         if not cookie_obj:
             return False
-        if cookie_obj.email != email:
+        user = User.objects.filter(email = cookie_obj.email)
+        if user.user_type != userType:
             return False
         if cookie_obj.expiry < datetime.now():
             return False
-        return True
+        return cookie_obj
