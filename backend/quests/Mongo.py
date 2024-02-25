@@ -1,5 +1,7 @@
 from pymongo import MongoClient
-from backend.tasks.Mongo import TaskManager
+from ..tasks.Mongo import TaskManager
+from ..tasks.views import URI, DATABASE, COLLECTION
+
 class QuestManager:
     def __init__(self, mongo_uri, database_name, collection_name):
         self.connection = MongoClient(mongo_uri)
@@ -40,4 +42,16 @@ class QuestManager:
         )
         return counter_doc["seq"]
     
-    
+    def get_all_quest_details(self):
+        quest_details = {}
+        quests = self.collection.find({})
+        for quest in quests:
+            descriptions = []
+            for taskId in quest.tasks:
+                descriptions.append(self.task_description(taskId))
+            quest_details[quest._id] = descriptions
+        return quest_details
+
+    def task_description(self, taskId):
+        manager = TaskManager(URI, DATABASE, COLLECTION)
+        return manager.get_description(taskId)

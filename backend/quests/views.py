@@ -48,6 +48,9 @@ def deleteQuest(request):
             if not questId:
                 return JsonResponse({'message': 'No questId provided'}, status=400)
 
+            communityManager = community_manager(client, db, collection)
+            communityManager.delete_questId(isAuthorize.email, questId)
+
             manager = QuestManager(MONGO_URI, DATABASE_NAME, COLLECTION_NAME)
             isDeleted = manager.delete_quest(questId)
             return JsonResponse({'message': isDeleted}, status=200)
