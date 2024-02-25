@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from Mongo import TaskManager
+from ..users.models import Cookie
 import json
 
 # Data Format: {'description': description, 'location': location}
@@ -10,6 +11,12 @@ def addTask(request):
         uri = "mongodb://localhost:27017"
         database = "Backend"
         collection = "Tasks"
+
+        cookie = data.get('cookie', None)
+        isAuthorize = Cookie.cookie_check(cookie = cookie, userType = 2)
+        if not isAuthorize:
+            return JsonResponse({'message': 'Unauthorized'}, status=401)
+        
         manager = TaskManager(uri, database, collection)
         taskId = manager.insert_task(data['description'], data['location'])
         return JsonResponse({'taskId': taskId}, status = 200)
@@ -21,6 +28,12 @@ def deleteTask(request):
         uri = "mongodb://localhost:27017"
         database = "Backend"
         collection = "Tasks"
+
+        cookie = data.get('cookie', None)
+        isAuthorize = Cookie.cookie_check(cookie = cookie, userType = 2)
+        if not isAuthorize:
+            return JsonResponse({'message': 'Unauthorized'}, status=401)
+
         manager = TaskManager(uri, database, collection)
         isDeleted = manager.delete_task(data['taskId'])
         return JsonResponse({'bool': isDeleted}, status = 200)

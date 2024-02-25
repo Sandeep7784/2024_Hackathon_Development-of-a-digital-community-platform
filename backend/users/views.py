@@ -76,7 +76,7 @@ def register_community_manager(request):
             last_name = data.get('last_name' , None ) 
             dob = data.get('dob' , None ) 
 
-            if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None or about == None : 
+            if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None: 
                 return JsonResponse(status=204, data={'message': 'Something is missing'})
 
             user = User.objects.filter(email=userEmail).first()
