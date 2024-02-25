@@ -1,4 +1,6 @@
 from pymongo import MongoClient
+from ..tasks.Mongo import TaskManager
+from ..tasks.views import URI, DATABASE, COLLECTION
 
 class QuestManager:
     def __init__(self, mongo_uri, database_name, collection_name):
@@ -42,10 +44,14 @@ class QuestManager:
     
     def get_all_quest_details(self):
         quest_details = {}
-        quests = self.collection.find({}, {"_id": 1, "description": 1})
+        quests = self.collection.find({})
         for quest in quests:
-            quest_id = quest["_id"]
-            description = quest.get("description", "")
-            words = description.split()  
-            quest_details[quest_id] = words
+            descriptions = []
+            for taskId in quest.tasks:
+                descriptions.append(self.task_description(taskId))
+            quest_details[quest._id] = descriptions
         return quest_details
+
+    def task_description(self, taskId):
+        manager = TaskManager(URI, DATABASE, COLLECTION)
+        return manager.get_description(taskId)

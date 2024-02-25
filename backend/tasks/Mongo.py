@@ -26,3 +26,8 @@ class TaskManager:
         )
         return counter_doc["seq"]
 
+    def get_description(self, taskId):
+        res = self.collection.find({"_id": taskId})
+        compelete_description = res.description + 'Location : ' + res.location
+        output = {'description': compelete_description}
+        return output
