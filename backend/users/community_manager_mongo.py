@@ -47,7 +47,6 @@ class community_manager:
             print("QuestId deleted successfully.")
         else:
             print("Email Id does not exists ")
-    
 
 
     def approve_quest(self , email , questId , userEmail , start_date , end_date ) : 
