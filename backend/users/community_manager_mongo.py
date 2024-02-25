@@ -7,7 +7,7 @@ db =  'Netropolis'
 collection = 'community_manager_data'
 
 
-class community_manager : 
+class community_manager: 
     def __init__(self , client , db , collection) : 
         self.client = MongoClient(client)
         self.db = self.client[db]
@@ -37,6 +37,19 @@ class community_manager :
         else:
             print("Email Id does not exists ")
     
+    def delete_questId(self , email , questId)  :
+        existing_user = self.collection.find_one({'email': email})
+        if existing_user: 
+            self.collection.update_one(
+                {'email': email},
+                {'$pull': {'quests': questId}}
+            )
+            print("QuestId deleted successfully.")
+        else:
+            print("Email Id does not exists ")
+    
+
+
     def approve_quest(self , email , questId , userEmail , start_date , end_date ) : 
         existing_user = self.collection.find_one({'email': email})
         if existing_user:

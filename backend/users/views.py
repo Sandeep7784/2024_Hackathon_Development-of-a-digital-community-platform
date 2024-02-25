@@ -4,6 +4,10 @@ from django.contrib.auth.hashers import make_password, check_password
 from .models import User, Cookie
 import json
 from user_mongo import user
+from nltk.corpus import wordnet
+import nltk
+nltk.download('wordnet')
+
 
 def login(request):
     if request.method == 'POST':
@@ -76,7 +80,7 @@ def register_community_manager(request):
             last_name = data.get('last_name' , None ) 
             dob = data.get('dob' , None ) 
 
-            if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None or about == None : 
+            if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None  : 
                 return JsonResponse(status=204, data={'message': 'Something is missing'})
 
             user = User.objects.filter(email=userEmail).first()
@@ -86,6 +90,34 @@ def register_community_manager(request):
 
             user = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 1 ) 
             user.save()
+
+        except Exception as e:
+            print(f"An error occured: {e}")
+            JsonResponse({'message': e})
+
+def is_similar(word1, word2):
+    synsets1 = wordnet.synsets(word1)
+    synsets2 = wordnet.synsets(word2)
+    if synsets1 and synsets2:
+        max_similarity = 0
+        for synset1 in synsets1:
+            for synset2 in synsets2:
+                similarity = synset1.path_similarity(synset2)
+                if similarity is not None and similarity > max_similarity:
+                    max_similarity = similarity
+        return max_similarity >= 0.5 
+    else:
+        return 0  
+
+
+def search_query(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body.decode('utf-8')) 
+            query = data.get('query' , None ) 
+            query_words = query.split(" ")
+            # quests_data = 
+            '''add karna hai isko abhi change '''
 
         except Exception as e:
             print(f"An error occured: {e}")

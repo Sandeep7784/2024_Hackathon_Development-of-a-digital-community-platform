@@ -6,9 +6,9 @@ class QuestManager:
         self.database = self.connection[database_name]
         self.collection = self.database[collection_name]
 
-    def insert_quest(self, tasks):
+    def insert_quest(self, tasks , title ):
         quest_id = self.get_next_quest_id()
-        quest_document = {"_id": quest_id, "tasks": tasks}
+        quest_document = {"_id": quest_id, "tasks": tasks , "title" : title}
         self.collection.insert_one(quest_document)
         return quest_id
 
