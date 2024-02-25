@@ -39,3 +39,13 @@ class QuestManager:
             return_document=True,
         )
         return counter_doc["seq"]
+    
+    def get_all_quest_details(self):
+        quest_details = {}
+        quests = self.collection.find({}, {"_id": 1, "description": 1})
+        for quest in quests:
+            quest_id = quest["_id"]
+            description = quest.get("description", "")
+            words = description.split()  
+            quest_details[quest_id] = words
+        return quest_details

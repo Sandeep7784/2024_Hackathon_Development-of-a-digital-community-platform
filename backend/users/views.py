@@ -7,7 +7,7 @@ from user_mongo import user
 from nltk.corpus import wordnet
 import nltk
 nltk.download('wordnet')
-
+from backend.quests.Mongo import QuestManager
 
 def login(request):
     if request.method == 'POST':
@@ -51,9 +51,9 @@ def register(request):
             if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None or about == None : 
                 return JsonResponse(status=204, data={'message': 'Something is missing'})
 
-            user = User.objects.filter(email=userEmail).first()
+            user_ = User.objects.filter(email=userEmail).first()
             
-            if user : 
+            if user_ : 
                 return JsonResponse({'message': 'Email already exists'} , status = 401 )
             client = "mongodb://localhost:27017/"
             db =  'Netropolis'
@@ -61,8 +61,8 @@ def register(request):
             manager = user(client=client , db=db , collection=collection) 
             manager.insert(email=userEmail , dob = dob , about= about)
 
-            user = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 0 ) 
-            user.save()
+            user_ = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 0 ) 
+            user_.save()
             return JsonResponse(data = {'message' : 'Account Created Successfully.'} , status = 200 )
        
         except Exception as e:
@@ -95,7 +95,7 @@ def register_community_manager(request):
             print(f"An error occured: {e}")
             JsonResponse({'message': e})
 
-def is_similar(word1, word2):
+def similarity(word1, word2):
     synsets1 = wordnet.synsets(word1)
     synsets2 = wordnet.synsets(word2)
     if synsets1 and synsets2:
@@ -105,7 +105,7 @@ def is_similar(word1, word2):
                 similarity = synset1.path_similarity(synset2)
                 if similarity is not None and similarity > max_similarity:
                     max_similarity = similarity
-        return max_similarity >= 0.5 
+        return max_similarity
     else:
         return 0  
 
@@ -116,8 +116,23 @@ def search_query(request):
             data = json.loads(request.body.decode('utf-8')) 
             query = data.get('query' , None ) 
             query_words = query.split(" ")
-            # quests_data = 
-            '''add karna hai isko abhi change '''
+            # add changes 
+            client = 'add_client'
+            db ='db'
+            collection = 'collection'
+            # yaha tak 
+            quests = QuestManager(client , db , collection )
+            quests_data = quests.get_all_quest_details()
+            quests_priority = {}
+            for qId in quests_data:
+                q_des = quests_data[qId]
+                priorty = 0 
+                for word1 in q_des:
+                    for word2 in query_words:
+                        priorty += similarity(word1 , word2 ) 
+                quests[qId] = priorty
+                
+            return quests 
 
         except Exception as e:
             print(f"An error occured: {e}")
