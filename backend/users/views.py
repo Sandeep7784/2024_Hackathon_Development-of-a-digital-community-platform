@@ -130,9 +130,9 @@ def search_query(request):
                 for word1 in q_des:
                     for word2 in query_words:
                         priorty += similarity(word1 , word2 ) 
-                quests[qId] = priorty
+                quests_priority[qId] = priorty
                 
-            return quests 
+            return quests_priority
 
         except Exception as e:
             print(f"An error occured: {e}")
