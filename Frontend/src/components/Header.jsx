@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
-const navItems = ['Home', 'About', 'Contact'];
+const navItems = ['Home', 'Past Quest\'s', 'Pending Request\'s', 'Logout'];
 
 function Header(props) {
   const { window } = props;
@@ -38,6 +38,7 @@ function Header(props) {
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={item} />
             </ListItemButton>
+            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
           </ListItem>
         ))}
       </List>
