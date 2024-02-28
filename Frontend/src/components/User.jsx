@@ -14,12 +14,13 @@ export default function User() {
   return (
     <React.Fragment>
       <Header />
-      <section className="template6Hero mb-12 md:mb-48 bg-gray-100 py-16 md:py-24">
+      <section className="flex justify-center items-center h-screen mb-12 md:mb-48 py-16 md:py-24">
         <div className="container mx-auto text-center">
-          <h1 className="font-bold leading-tight text-gray-900 text-6xl md:text-7xl lg:text-8xl mb-4 md:mb-8">
+          <h2 className="font-bold leading-tight text-gray-900 text-4xl md:text-5xl lg:text-6xl mb-4 md:mb-8">
             Comprehensive Solutions for Aspiring Opportunity Seekers
             {/* <span className="text-gradient"> SaaS Founders</span> */}
-          </h1>
+          </h2>
+
           <div className="max-w-3xl mx-auto">
             <p className="text-gray-800 text-lg md:text-xl mt-4 md:mt-6 mb-8">
               Enter your preferred domain in the search button below to explore
@@ -27,7 +28,7 @@ export default function User() {
               interests.
             </p>
           </div>
-          <div className="flex flex-col items-center md:flex-row md:justify-center gap-4">
+          <div className="flex flex-col items-center justify-center md:flex-row md:justify-center gap-4">
             <div className="flex items-center">
               <Paper
                 component="form"
@@ -52,31 +53,40 @@ export default function User() {
                 </IconButton>
               </Paper>
             </div>
-            <div className="mt-6" style={{ marginTop: "1.5rem" }}>
-              <Stack
-                direction="row"
-                spacing={2}
-                alignItems="center"
-                justifyContent="center"
+          </div>
+          <div
+            className="flex items-center justify-center md:justify-start mt-6"
+            style={{
+              marginTop: "1.5rem",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center", // Center horizontally
+              alignItems: "center", // Center vertically
+            }}
+          >
+            <Stack
+              direction="row"
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+            >
+              <Button
+                variant="contained"
+                size="large"
+                startIcon={<AssignmentTurnedInIcon />}
+                disableElevation
               >
-                <Button
-                  variant="contained"
-                  size="large"
-                  startIcon={<AssignmentTurnedInIcon />}
-                  disableElevation
-                >
-                  Quest's History
-                </Button>
-                <Button
-                  variant="contained"
-                  size="large"
-                  startIcon={<ContactSupportIcon />}
-                  disableElevation
-                >
-                  Pending Request's
-                </Button>
-              </Stack>
-            </div>
+                Quest's History
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                startIcon={<ContactSupportIcon />}
+                disableElevation
+              >
+                Pending Request's
+              </Button>
+            </Stack>
           </div>
         </div>
       </section>
