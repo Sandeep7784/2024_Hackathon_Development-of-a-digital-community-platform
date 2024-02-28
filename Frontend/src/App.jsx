@@ -14,8 +14,8 @@ function App() {
       {/* <SignIn /> */}
       {/* <SignUp /> */}
       {/* <User /> */}
-      <QuestHistory />
-      {/* <PendingRequests /> */}
+      {/* <QuestHistory /> */}
+      <PendingRequests />
     </React.Fragment>
   );
 }
