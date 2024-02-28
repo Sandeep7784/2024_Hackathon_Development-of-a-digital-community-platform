@@ -43,7 +43,7 @@ function QuestHistory(props) {
                 Date Applied: {info.dateApplied}
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
-                Date Assigned: 30 February 
+                Date Assigned: 30 February
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
                 Status: {info.status}
@@ -185,11 +185,14 @@ const blogCards = [
 
 function BlogList() {
   return (
-    <Grid container spacing={3}>
-      {blogCards.map((blog, index) => (
-        <QuestHistory key={index} info={blog} />
-      ))}
-    </Grid>
+    <React.Fragment>
+      <h2>Quest's History </h2>
+      <Grid container spacing={3}>
+        {blogCards.map((blog, index) => (
+          <QuestHistory key={index} info={blog} />
+        ))}
+      </Grid>
+    </React.Fragment>
   );
 }
 
