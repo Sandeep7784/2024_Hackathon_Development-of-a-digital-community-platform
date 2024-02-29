@@ -31,3 +31,13 @@ class TaskManager:
         compelete_description = res.description + 'Location : ' + res.location
         output = {'description': compelete_description}
         return output
+    
+    def get_document(self , taskId ) : 
+        isThere = self.collection.find_one(
+            {"_id": taskId},
+        )
+        return isThere
+
+    def get_all_tasks(self): 
+        result = self.collection.find({})
+        return result

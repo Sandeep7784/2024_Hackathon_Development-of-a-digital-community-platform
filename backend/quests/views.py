@@ -22,11 +22,12 @@ def addQuest(request):
                 return JsonResponse({'message': 'Unauthorized'}, status=401)
             
             tasks = data.get('tasks', [])
+            title = data.get('title' , [])
             if not tasks:
                 return JsonResponse({'message': 'No tasks provided'}, status=400)
 
             manager = QuestManager(MONGO_URI, DATABASE_NAME, COLLECTION_NAME)
-            questId = manager.insert_quest(tasks)
+            questId = manager.insert_quest(tasks , title , isAuthorize.email())
 
             communityManager = community_manager(client, db, collection)
             communityManager.insert_questId(isAuthorize.email, questId)

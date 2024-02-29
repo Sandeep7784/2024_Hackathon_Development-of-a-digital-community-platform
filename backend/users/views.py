@@ -9,7 +9,10 @@ from nltk.corpus import wordnet
 import nltk
 nltk.download('wordnet')
 from quests.Mongo import QuestManager
+from tasks.Mongo import TaskManager
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime
+
 
 @csrf_exempt
 def login(request):
@@ -137,22 +140,147 @@ def search_query(request):
             query = data.get('query' , None ) 
             query_words = query.split(" ")
             # add changes 
-            client = 'add_client'
-            db ='db'
-            collection = 'collection'
+            client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+            db =  'Netropolis'
+            collection = 'Quests'
             # yaha tak 
             quests = QuestManager(client , db , collection )
             quests_data = quests.get_all_quest_details()
-            quests_priority = {}
+            quests_priority = []
             for qId in quests_data:
                 q_des = quests_data[qId]
                 priorty = 0 
                 for word1 in q_des:
                     for word2 in query_words:
                         priorty += similarity(word1 , word2 ) 
-                quests_priority[qId] = priorty
-                
-            return quests_priority
+                # quests_priority[qId] = priorty 
+                quests_priority.append([priorty , qId]) 
+            quests_priority.sort() 
+            quests_priority.reverse() 
+
+            quests_priority = quests_priority[0:10]
+
+            top_10_quests = {} 
+            for q in quests_priority : 
+                qid = q[1] 
+                doc = quests.get_document(qid)
+                tasks = doc['tasks']
+                tilte = doc['title']
+                top_10_quests[qid] = [tilte] + tasks
+
+            return JsonResponse(top_10_quests , status = 200 )
+
+        except Exception as e:
+            print(f"An error occured: {e}")
+            JsonResponse({'message': e})
+
+
+@csrf_exempt 
+def send_request(request) : 
+    if(request.method == "POST") : 
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            cookie = data.get('cookie', None)
+            isAuthorize = Cookie.cookie_check(cookie = cookie, userType = 1)
+            if not isAuthorize:
+                return JsonResponse({'message': 'Unauthorized'}, status=401)
+            questId = data.get('questId' , None ) 
+            client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+            db =  'Netropolis'
+            collection1 = 'Quests'
+            
+            quest_manager = QuestManager(client , db , collection1) 
+            doc = quest_manager.get_document(questId)
+            userEmail = cookie.email
+            cm_email = doc['email']
+            collection2 = 'community_manager_data'
+            cm_object = community_manager(client , db , collection2)
+            cm_object.get_request(cm_email , questId , userEmail , date_received = datetime.now()) 
+            
+            return JsonResponse({'message' : 'Request sent'}, status = 200 )
+
+
+        except Exception as e:
+            print(f"An error occured: {e}")
+            JsonResponse({'message': e})
+
+@csrf_exempt
+def approve_request(request):
+    if(request.method == "POST") : 
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            cookie = data.get('cookie', None)
+            isAuthorize = Cookie.cookie_check(cookie = cookie, userType = 1)
+            if not isAuthorize:
+                return JsonResponse({'message': 'Unauthorized'}, status=401)
+            questId = data.get('questId' , None ) 
+            client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+            db =  'Netropolis'
+            collection1 = 'Quests'
+            
+            quest_manager = QuestManager(client , db , collection1) 
+            doc = quest_manager.get_document(questId)
+            userEmail = cookie.email
+            cm_email = doc['email']
+            collection2 = 'community_manager_data'
+            cm_object = community_manager(client , db , collection2)
+            cm_object.approve_quest(userEmail= userEmail , email = cm_email , questId= questId , status = 'approve') 
+            
+            return JsonResponse({'message' : 'Request approved'}, status = 200 )
+
+
+        except Exception as e:
+            print(f"An error occured: {e}")
+            JsonResponse({'message': e})
+
+
+@csrf_exempt
+def reject_request(request):
+    if(request.method == "POST") : 
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            cookie = data.get('cookie', None)
+            isAuthorize = Cookie.cookie_check(cookie = cookie, userType = 1)
+            if not isAuthorize:
+                return JsonResponse({'message': 'Unauthorized'}, status=401)
+            questId = data.get('questId' , None ) 
+            client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+            db =  'Netropolis'
+            collection1 = 'Quests'
+            
+            quest_manager = QuestManager(client , db , collection1) 
+            doc = quest_manager.get_document(questId)
+            userEmail = cookie.email
+            cm_email = doc['email']
+            collection2 = 'community_manager_data'
+            cm_object = community_manager(client , db , collection2)
+            cm_object.approve_quest(userEmail= userEmail , email = cm_email , questId= questId , status = 'reject') 
+            
+            return JsonResponse({'message' : 'Request approved'}, status = 200 )
+
+
+        except Exception as e:
+            print(f"An error occured: {e}")
+            JsonResponse({'message': e})
+
+
+@csrf_exempt 
+def get_all_tasks(request):
+    if(request.method == "POST") : 
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            cookie = data.get('cookie', None)
+            isAuthorize = Cookie.cookie_check(cookie = cookie, userType = 1)
+            if not isAuthorize:
+                return JsonResponse({'message': 'Unauthorized'}, status=401)
+            
+            client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+            db =  'Netropolis'
+            collection = 'Tasks'
+            
+            task_manager = TaskManager(client , db , collection) 
+            all_tasks = task_manager.get_all_tasks() 
+            return JsonResponse({'message' : 'Tasks Sent' , 'body' : all_tasks}, status = 200 )
 
         except Exception as e:
             print(f"An error occured: {e}")

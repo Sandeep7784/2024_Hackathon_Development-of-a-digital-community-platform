@@ -8,9 +8,9 @@ class QuestManager:
         self.database = self.connection[database_name]
         self.collection = self.database[collection_name]
 
-    def insert_quest(self, tasks , title ):
+    def insert_quest(self, tasks , title , email ):
         quest_id = self.get_next_quest_id()
-        quest_document = {"_id": quest_id, "tasks": tasks , "title" : title}
+        quest_document = {"_id": quest_id, "tasks": tasks , "title" : title , "email" : email }
         self.collection.insert_one(quest_document)
         return quest_id
 
@@ -55,3 +55,9 @@ class QuestManager:
     def task_description(self, taskId):
         manager = TaskManager(URI, DATABASE, COLLECTION)
         return manager.get_description(taskId)
+    
+    def get_document(self , questId ) : 
+        isThere = self.collection.find_one(
+            {"_id": questId},
+        )
+        return isThere
