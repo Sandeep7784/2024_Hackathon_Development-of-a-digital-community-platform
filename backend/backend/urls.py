@@ -23,5 +23,9 @@ from quests import views as quest_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", users_views.login, name='Login'),
-    path("signup/", users_views.register, name='signup')
+    path("signup/", users_views.register, name='signup'),
+    path("pending-request/" , users_views.get_pending_requests , name = 'pending-request') ,
+    path("user-pending-request/" , users_views.user_pending_request , name = 'user-pending-request') ,
+    path("search/" , users_views.search_query , name =  'search' ) , 
+    path("request/" , users_views.send_request , name =  'request' ) ,
 ]

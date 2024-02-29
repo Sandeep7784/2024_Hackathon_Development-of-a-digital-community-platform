@@ -74,7 +74,12 @@ class user :
             print("Status updated successfully")
         else:
             print("User not found")
-
+    def get_doc(self , email ) : 
+        existing_user = self.collection.find_one({'email': email})
+        if existing_user: 
+            return existing_user
+        else :
+            print("User does not exist.")
 
 # xy = user(client=client , db = db , collection = collection) 
 # xy.insert("abc1@gmail.com")

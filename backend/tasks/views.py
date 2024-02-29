@@ -38,3 +38,4 @@ def deleteTask(request):
         manager = TaskManager(URI, DATABASE, COLLECTION)
         isDeleted = manager.delete_task(data['taskId'])
         return JsonResponse({'bool': isDeleted}, status = 200)
+    
