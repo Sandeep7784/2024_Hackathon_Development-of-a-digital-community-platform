@@ -33,7 +33,7 @@ export default function SignUp() {
     const jsonString = JSON.stringify(jsonData);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/login/", {
+      const response = await fetch("http://127.0.0.1:8000/signup/", {
         method: "POST",
         body: jsonString,
       });
@@ -41,7 +41,7 @@ export default function SignUp() {
       if (response.ok) {
         // Redirect to /login if the response is successful (status code 200)
         // history.push("/login");
-        navigate("/login");
+        navigate("/signin");
       } else {
         console.error("Server error:", response.statusText);
       }

@@ -1,10 +1,10 @@
-import * as React from "react";
+// import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
-import { useState } from "react";
+// import { useState } from "react";
 import Header from "./Header";
 import {
   Dialog,
@@ -17,15 +17,17 @@ import {
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle"; // Material-UI check circle icon
 import HourglassEmptyIcon from "@mui/icons-material/HourglassEmpty"; // Material-UI hourglass icon for pending tasks
+import React, { useEffect, useState } from 'react';
+
 
 function QuestHistory(props) {
   const { info } = props;
   const [open, setOpen] = useState(false);
-
+  
   const handleOpen = () => {
     setOpen(true);
   };
-
+  
   const handleClose = () => {
     setOpen(false);
   };
@@ -67,7 +69,7 @@ function QuestHistory(props) {
                       Completed Tasks
                     </Typography>
                   }
-                />
+                  />
               </ListItem>
               {info.completedTasks.map((task, index) => (
                 <ListItem key={index}>
@@ -84,7 +86,7 @@ function QuestHistory(props) {
                       Pending Tasks
                     </Typography>
                   }
-                />
+                  />
               </ListItem>
               {info.pendingTasks.map((task, index) => (
                 <ListItem key={index}>
@@ -185,11 +187,13 @@ const blogCards = [
 
 function BlogList() {
   const [history, setHistory] = useState([]);
-
+  
   useEffect(() => {
+    setHistory([]);
     const cookies = localStorage.getItem('imp_cookie');
     const user_type = localStorage.getItem('user_type');
-
+    console.log(cookies)
+    
     fetch("http://127.0.0.1:8000/history/", {
       method: 'POST',
       headers: {
@@ -197,9 +201,9 @@ function BlogList() {
       },
       body: JSON.stringify({ cookie: cookies, user_type: user_type})
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setHistory(data);
+    .then((response) => response.json())
+    .then((data) => {
+      setHistory(data);
       })
       .catch((error) => {
         console.error("Error fetching history:", error);
@@ -210,7 +214,7 @@ function BlogList() {
     <React.Fragment>
       <h2>Quest's History </h2>
       <Grid container spacing={3}>
-        {blogCards.map((blog, index) => (
+        {history.map((blog, index) => (
           <QuestHistory key={index} info={blog} />
         ))}
       </Grid>

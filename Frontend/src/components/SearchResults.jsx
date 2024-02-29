@@ -79,7 +79,8 @@ const dummySearchResults = [
 const SearchResults = ({ keyword }) => {
   const [searchResults, setSearchResults] = useState([]);
   const cookies = localStorage.getItem('imp_cookie');
-
+  const query_value = localStorage.getItem('keyword');
+  
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
@@ -88,7 +89,7 @@ const SearchResults = ({ keyword }) => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({cookie: cookies, query: keyword})
+          body: JSON.stringify({query: query_value, cookie: cookies})
         });
         const data = await response.json();
 
@@ -106,7 +107,7 @@ const SearchResults = ({ keyword }) => {
     };
 
     fetchSearchResults();
-  }, [keyword]);
+  }, []);
 
   return (
     <React.Fragment>

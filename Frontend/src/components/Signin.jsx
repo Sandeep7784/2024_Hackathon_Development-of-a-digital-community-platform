@@ -39,8 +39,8 @@ export default function SignIn() {
       if (response.ok) {
         const jsonResponse = await response.json();
         const userType = jsonResponse.user_type;
-        const cookies = jsonResponse.cookies;
-
+        const cookies = jsonResponse.cookie;
+        console.log(userType, cookies);
         localStorage.setItem('imp_cookie', cookies);
         localStorage.setItem('user_type', userType);
 

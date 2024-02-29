@@ -27,8 +27,10 @@ class Cookie(models.Model):
     def cookie_check(cookie, userType):
         cookie_obj = Cookie.objects.filter(cookie=cookie).first()
         if not cookie_obj:
+            print("NO obj")
             return False
-        user = User.objects.filter(email = cookie_obj.email)
+        user = User.objects.filter(email = cookie_obj.email).first()
         if user.user_type != userType:
+            print("NOT MATCH USER TYPE")
             return False
         return cookie_obj

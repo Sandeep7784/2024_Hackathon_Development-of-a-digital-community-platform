@@ -5,10 +5,9 @@ from users.models import Cookie
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-URI = "mongodb://localhost:27017"
-DATABASE = "Backend"
+URI = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+DATABASE = "Netropolis"
 COLLECTION = "Tasks"
-
 # Data Format: {'description': description, 'location': location}
 @csrf_exempt
 def addTask(request):

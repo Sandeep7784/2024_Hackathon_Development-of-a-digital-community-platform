@@ -31,6 +31,8 @@ export default function User() {
 
   const handleKeywordChange = (event) => {
     setSearchKeyword(event.target.value);
+    localStorage.setItem('keyword', searchKeyword);
+    // console.log(searchKeyword);
   };
 
   return (

@@ -28,4 +28,6 @@ urlpatterns = [
     path("user-pending-request/" , users_views.user_pending_request , name = 'user-pending-request') ,
     path("search/" , users_views.search_query , name =  'search' ) , 
     path("request/" , users_views.send_request , name =  'request' ) ,
+    path("history/", users_views.quest_history, name = 'history'),
+    
 ]

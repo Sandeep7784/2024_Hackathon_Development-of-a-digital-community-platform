@@ -6,8 +6,8 @@ from users.community_manager_mongo import community_manager, client, db, collect
 from django.views.decorators.csrf import csrf_exempt
 import json
 
-MONGO_URI = "mongodb://localhost:27017"
-DATABASE_NAME = "Backend"
+MONGO_URI = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+DATABASE_NAME = "Netropolis"
 COLLECTION_NAME = "Quests"
 
 # Data Format: {'tasks': [tasksId,....]}

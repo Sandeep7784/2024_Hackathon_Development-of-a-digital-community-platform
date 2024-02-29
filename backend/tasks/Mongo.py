@@ -27,8 +27,10 @@ class TaskManager:
         return counter_doc["seq"]
 
     def get_description(self, taskId):
-        res = self.collection.find({"_id": taskId})
-        compelete_description = res.description + 'Location : ' + res.location
+        print(taskId)
+        res = self.collection.find_one({"_id": taskId})
+        print("res:", res)
+        compelete_description = res['description'] + 'Location : ' + res['location']
         output = {'description': compelete_description}
         return output
     
@@ -41,3 +43,11 @@ class TaskManager:
     def get_all_tasks(self): 
         result = self.collection.find({})
         return result
+    
+# client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# db =  'Netropolis'
+# collection = 'Tasks'
+# x = TaskManager(client, db, collection)
+# x.insert_task("this task 1", "x")
+# x.insert_task("this is task 2 ", "y")
+# x.insert_task("this is task 3", "z")

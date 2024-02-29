@@ -38,6 +38,7 @@ def login(request):
                 return JsonResponse(data = {'message': 'Email or password is wrong'}, status=401)
             
             newCookie = Cookie.create(userEmail)
+            print(newCookie)
             return JsonResponse(data = {'message': 'Login successful', 'user_type': currUser.user_type, 'cookie': newCookie})
         
         except Exception as e:
@@ -137,7 +138,13 @@ def search_query(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body.decode('utf-8'))
+            print(data)
             query = data.get('query' , None ) 
+            print()
+            print()
+            print("query", query)
+            print()
+            print()
             query_words = query.split(" ")
             # add changes 
             client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
@@ -147,6 +154,7 @@ def search_query(request):
             quests = QuestManager(client , db , collection )
             quests_data = quests.get_all_quest_details()
             quests_priority = []
+            print(quests_data)
             for qId in quests_data:
                 q_des = quests_data[qId]
                 priorty = 0 
@@ -167,6 +175,8 @@ def search_query(request):
                 tasks = doc['tasks']
                 tilte = doc['title']
                 top_10_quests[qid] = [tilte] + tasks
+            
+            print(top_10_quests)
 
             return JsonResponse(top_10_quests , status = 200 )
 

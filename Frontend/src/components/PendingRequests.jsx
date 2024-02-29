@@ -1,10 +1,12 @@
-import React from "react";
+// import React from "react";
 import Header from "./Header";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
+import React, { useEffect, useState } from 'react';
+
 
 function PendingRequests(props) {
   const { info } = props;

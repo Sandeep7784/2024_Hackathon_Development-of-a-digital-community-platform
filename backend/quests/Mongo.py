@@ -47,9 +47,9 @@ class QuestManager:
         quests = self.collection.find({})
         for quest in quests:
             descriptions = []
-            for taskId in quest.tasks:
+            for taskId in quest['tasks']:
                 descriptions.append(self.task_description(taskId))
-            quest_details[quest._id] = descriptions
+            quest_details[quest["_id"]] = descriptions
         return quest_details
 
     def task_description(self, taskId):
@@ -61,3 +61,10 @@ class QuestManager:
             {"_id": questId},
         )
         return isThere
+
+# client = "mongodb+srv://adarshshrivastava2003:qwerty0110@cluster0.bagywzw.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# db =  'Netropolis'
+# collection = 'Quests'
+
+# x = QuestManager(client, db, collection)
+# x.insert_quest([1,3], "Quest 1", "h1@")

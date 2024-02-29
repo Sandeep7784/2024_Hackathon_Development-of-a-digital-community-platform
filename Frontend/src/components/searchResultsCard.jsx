@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import Header from "./Header";
 import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
@@ -13,6 +13,8 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DescriptionIcon from "@mui/icons-material/Description"; // Generic task icon
+import React, { useEffect, useState } from 'react';
+
 
 const SearchResultCard = ({ key, title, tasks,}) => {
   const [open, setOpen] = useState(false);
