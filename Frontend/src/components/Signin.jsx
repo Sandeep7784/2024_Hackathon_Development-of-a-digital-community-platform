@@ -39,7 +39,11 @@ export default function SignIn() {
       if (response.ok) {
         const jsonResponse = await response.json();
         const userType = jsonResponse.user_type;
-  
+        const cookies = jsonResponse.cookies;
+
+        localStorage.setItem('imp_cookie', cookies);
+        localStorage.setItem('user_type', userType);
+
         // Define the routes based on user_type
         let redirectRoute = "/signin";
         if (userType === 0) {

@@ -80,7 +80,6 @@ class user :
             return existing_user
         else :
             print("User does not exist.")
-
 # xy = user(client=client , db = db , collection = collection) 
 # xy.insert("abc1@gmail.com")
 # xy.insert("abc2@gmail.com")

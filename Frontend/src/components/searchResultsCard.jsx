@@ -14,7 +14,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import DescriptionIcon from "@mui/icons-material/Description"; // Generic task icon
 
-const SearchResultCard = ({ title, tasks, town, onSendRequest }) => {
+const SearchResultCard = ({ key, title, tasks,}) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -23,6 +23,31 @@ const SearchResultCard = ({ title, tasks, town, onSendRequest }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleMakeRequest = async () => {
+    // Call the API to make a request
+    const cookies = localStorage.getItem('imp_cookies');
+    await fetch('http://127.0.0.1:8000/request/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        questId: key,
+        cookie: cookies
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        console.log("Request sent successfully");
+      } else {
+        console.error("Failed to send request");
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+    });
   };
 
   // Split the tasks string into an array of individual tasks
@@ -40,9 +65,6 @@ const SearchResultCard = ({ title, tasks, town, onSendRequest }) => {
               </Typography>
               <Typography variant="subtitle1" color="text.secondary">
                 Tasks: {tasks}
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary">
-                Town: {town}
               </Typography>
             </CardContent>
           </Card>
@@ -69,6 +91,9 @@ const SearchResultCard = ({ title, tasks, town, onSendRequest }) => {
                 </ListItem>
               ))}
             </List>
+            <Button onClick={handleMakeRequest} variant="contained" color="primary">
+              Make Request
+            </Button>
           </DialogContent>
         </Dialog>
       </Grid>
