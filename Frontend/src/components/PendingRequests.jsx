@@ -37,7 +37,7 @@ function PendingRequests(props) {
   );
 }
 
-const pendingRequests = [
+const pendingRequests1 = [
   {
     questName: "Quest 1",
     dateApplied: "January 15, 2024",
@@ -91,7 +91,7 @@ function PendingRequestsPage() {
     <React.Fragment>
       <h1 style={{ marginBottom: "40px" }}>Pending Request's</h1>
       <Grid container spacing={3}>
-        {pendingRequests.map((request, index) => (
+        {pendingRequests1.map((request, index) => (
           <PendingRequests key={index} info={request} />
         ))}
       </Grid>

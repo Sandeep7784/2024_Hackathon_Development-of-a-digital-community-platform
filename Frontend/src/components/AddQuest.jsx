@@ -42,36 +42,36 @@ function PendingRequests(props) {
   );
 }
 
-// const pendingRequests = [
-//   {
-//     questName: "Quest 1",
-//     dateApplied: "January 15, 2024",
-//     status: "Pending",
-//     info: "Additional information for Quest 1",
-//   },
-//   {
-//     questName: "Quest 2",
-//     dateApplied: "February 5, 2024",
-//     status: "Pending",
-//     info: "Additional information for Quest 2",
-//   },
-//   {
-//     questName: "Quest 3",
-//     dateApplied: "February 5, 2024",
-//     status: "Pending",
-//     info: "Additional information for Quest 2",
-//   },
-//   {
-//     questName: "Quest 4",
-//     dateApplied: "February 5, 2024",
-//     status: "Pending",
-//     info: "Additional information for Quest 2",
-//   },
-//   // Add more pending request objects here...
-// ];
+const pendingRequests = [
+  {
+    questName: "Quest 1",
+    dateApplied: "January 15, 2024",
+    status: "Pending",
+    info: "Additional information for Quest 1",
+  },
+  {
+    questName: "Quest 2",
+    dateApplied: "February 5, 2024",
+    status: "Pending",
+    info: "Additional information for Quest 2",
+  },
+  {
+    questName: "Quest 3",
+    dateApplied: "February 5, 2024",
+    status: "Pending",
+    info: "Additional information for Quest 2",
+  },
+  {
+    questName: "Quest 4",
+    dateApplied: "February 5, 2024",
+    status: "Pending",
+    info: "Additional information for Quest 2",
+  },
+  // Add more pending request objects here...
+];
 
 function PendingRequestsPage() {
-  const [pendingRequests, setPendingRequests] = useState([]);
+  const [pendingRequests1, setPendingRequests] = useState([]);
 
   useEffect(() => {
     const cookies = localStorage.getItem('imp_cookie');

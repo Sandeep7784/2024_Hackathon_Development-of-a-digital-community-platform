@@ -214,7 +214,7 @@ function BlogList() {
     <React.Fragment>
       <h2>Quest's History </h2>
       <Grid container spacing={3}>
-        {history.map((blog, index) => (
+        {blogCards.map((blog, index) => (
           <QuestHistory key={index} info={blog} />
         ))}
       </Grid>
