@@ -15,11 +15,11 @@ export default function User() {
   };
 
   const addQuestHandleButtonClick = () => {
-    navigate("/transferList");
+    navigate("/managerTaskAdd");
   };
 
   const pendingQuestHandleButtonClick = () => {
-    navigate("/addQuest");
+    navigate("/managerPendingRequests");
   };
 
   return (
