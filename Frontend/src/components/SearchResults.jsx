@@ -83,7 +83,7 @@ const SearchResults = ({ keyword }) => {
       <Header />
       <div className="container mx-auto mt-8">
         <h2 className="text-3xl font-semibold mb-4">
-          Search Results for "{keyword}"
+          Search Results for your query
         </h2>
         {dummySearchResults.map((result) => (
           <SearchResultCard

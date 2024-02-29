@@ -8,6 +8,7 @@ import PendingRequests from "./components/PendingRequests";
 import CommunityUser from "./components/CommunityUser";
 import AddQuest from "./components/AddQuest";
 import SearchResults from "./components/SearchResults";
+import TransferList from "./components/TransferList";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -15,14 +16,15 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/signin" element={<SignIn />} /> 
+        <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/user" element={<User />} />
         <Route path="/questHistory" element={<QuestHistory />} />
         <Route path="/community-manager" element={<CommunityUser />} />
-        <Route path="/addQuest" element={<AddQuest />} />
-        <Route path="/pendingRequests" element={<PendingRequests />} />
-        <Route path="/searchResults" element={<SearchResults />} />
+        <Route path="/managerPendingRequests" element={<AddQuest />} />
+        <Route path="/userPendingRequests" element={<PendingRequests />} />
+        <Route path="/userSearchResults" element={<SearchResults />} />
+        <Route path="/managerTaskAdd" element={<TransferList />} />
       </Routes>
     </Router>
   );

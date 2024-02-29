@@ -15,7 +15,11 @@ export default function User() {
   };
 
   const addQuestHandleButtonClick = () => {
-    navigate("/addQuest");
+    navigate("/managerTaskAdd");
+  };
+
+  const pendingQuestHandleButtonClick = () => {
+    navigate("/managerPendingRequests");
   };
 
   return (
@@ -64,9 +68,18 @@ export default function User() {
                 size="large"
                 startIcon={<ContactSupportIcon />}
                 disableElevation
-                onClick={addQuestHandleButtonClick}
+                onClick={pendingQuestHandleButtonClick}
               >
                 Pending Request's
+              </Button>
+              <Button
+                variant="contained"
+                size="large"
+                startIcon={<CreateIcon />}
+                disableElevation
+                onClick={addQuestHandleButtonClick}
+              >
+                Add Quest
               </Button>
             </Stack>
           </div>
