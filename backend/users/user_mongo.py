@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient 
 
 # client = MongoClient("mongodb://localhost:27017/")
 
@@ -9,7 +9,7 @@ from pymongo import MongoClient
 
 class user : 
     def __init__(self , client , db , collection) : 
-        self.client = MongoClient(client)
+        self.client = MongoClient(client  )
         self.db = self.client[db]
         self.collection = self.db[collection] 
 

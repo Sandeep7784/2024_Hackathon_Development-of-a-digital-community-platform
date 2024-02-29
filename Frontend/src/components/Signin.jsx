@@ -17,13 +17,36 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-  const handleSubmit = (event) => {
+  
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+    const jsonData = {};
+    data.forEach((value, key) => {
+      jsonData[key] = value;
+    });
+
+    const jsonString = JSON.stringify(jsonData);
+    console.log(jsonString);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
     });
+    try {
+      const response = await fetch('http://127.0.0.1:8000/login/', {
+      method: 'POST',
+      body: jsonString,
+    });
+  
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        console.log('Server response:', jsonResponse);
+      } else {
+        console.error('Server error:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error during fetch:', error);
+    }
   };
 
   return (

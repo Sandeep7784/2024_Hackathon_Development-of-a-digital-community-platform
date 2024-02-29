@@ -13,14 +13,13 @@ class User(models.Model):
 class Cookie(models.Model):
     email = models.CharField(max_length=50)
     cookie = models.CharField(max_length=40)
-    expiry = models.DateTimeField()
 
     @staticmethod
     def create(email):
         exists = Cookie.objects.filter(email = email).first()
         if exists:
             exists.delete()
-        cookie = Cookie(email=email, cookie=str(uuid4()), expiry=datetime.now() + timedelta(days=30))
+        cookie = Cookie(email=email, cookie=str(uuid4()))
         cookie.save()
         return cookie.cookie
     
@@ -31,7 +30,5 @@ class Cookie(models.Model):
             return False
         user = User.objects.filter(email = cookie_obj.email)
         if user.user_type != userType:
-            return False
-        if cookie_obj.expiry < datetime.now():
             return False
         return cookie_obj

@@ -122,23 +122,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
               <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  select
-                  label="Role"
-                  value={role}
-                  onChange={handleRoleChange}
-                  id="role"
-                >
-                  <MenuItem value="manager">Manager</MenuItem>
-                  <MenuItem value="user">User</MenuItem>
-                </TextField>
-              </Grid>
-              </Grid>
-              <Grid item xs={12} sm={6}>
                 <TextField
                   required
                   fullWidth
