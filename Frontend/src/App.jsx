@@ -7,6 +7,7 @@ import QuestHistory from "./components/QuestHistory";
 import PendingRequests from "./components/PendingRequests";
 import CommunityUser from "./components/CommunityUser";
 import AddQuest from "./components/AddQuest";
+import SearchResults from "./components/SearchResults";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -21,6 +22,7 @@ function App() {
         <Route path="/community-manager" element={<CommunityUser />} />
         <Route path="/addQuest" element={<AddQuest />} />
         <Route path="/pendingRequests" element={<PendingRequests />} />
+        <Route path="/searchResults" element={<SearchResults />} />
       </Routes>
     </Router>
   );
