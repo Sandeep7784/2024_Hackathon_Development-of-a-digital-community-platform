@@ -21,7 +21,7 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const [role, setRole] = React.useState("");
   const history = useHistory();
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -120,27 +120,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-<<<<<<< HEAD
-              <Grid item xs={12} sm={6}>
-                <Grid item xs={12}>
-                  <TextField
-                    required
-                    fullWidth
-                    select
-                    label="Role"
-                    value={role}
-                    onChange={handleRoleChange}
-                    id="role"
-                  >
-                    <MenuItem value="manager">Manager</MenuItem>
-                    <MenuItem value="user">User</MenuItem>
-                  </TextField>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-=======
               <Grid item xs={12}>
->>>>>>> eeee4323e3860133ae4a3340337052a72ace6828
                 <TextField
                   required
                   fullWidth

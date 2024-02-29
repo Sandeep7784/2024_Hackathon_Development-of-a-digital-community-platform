@@ -18,10 +18,7 @@ import { useHistory } from "react-router-dom";
 const defaultTheme = createTheme();
 
 export default function SignIn() {
-<<<<<<< HEAD
   const history = useHistory();
-=======
->>>>>>> eeee4323e3860133ae4a3340337052a72ace6828
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +26,6 @@ export default function SignIn() {
     const jsonData = {};
     data.forEach((value, key) => {
       jsonData[key] = value;
-<<<<<<< HEAD
     });
   
     const jsonString = JSON.stringify(jsonData);
@@ -59,30 +55,6 @@ export default function SignIn() {
       }
     } catch (error) {
       console.error("Error during fetch:", error);
-=======
-    });
-
-    const jsonString = JSON.stringify(jsonData);
-    console.log(jsonString);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-    try {
-      const response = await fetch('http://127.0.0.1:8000/login/', {
-      method: 'POST',
-      body: jsonString,
-    });
-  
-      if (response.ok) {
-        const jsonResponse = await response.json();
-        console.log('Server response:', jsonResponse);
-      } else {
-        console.error('Server error:', response.statusText);
-      }
-    } catch (error) {
-      console.error('Error during fetch:', error);
->>>>>>> eeee4323e3860133ae4a3340337052a72ace6828
     }
   };
 
