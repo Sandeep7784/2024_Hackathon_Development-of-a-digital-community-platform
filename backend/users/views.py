@@ -8,6 +8,7 @@ from nltk.corpus import wordnet
 import nltk
 nltk.download('wordnet')
 from quests.Mongo import QuestManager
+from django.views.decorators.csrf import csrf_exempt
 
 def login(request):
     if request.method == 'POST':
@@ -37,32 +38,39 @@ def login(request):
             print(f"An error occured: {e}")
             JsonResponse({'message': e})
 
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         try:
-            data = json.loads(request.body.decode('utf-8'))
-            userEmail = data.get('email' , None ) 
-            userPassword = make_password(data.get('password' , None ))
-            first_name = data.get('first_name' , None ) 
-            last_name = data.get('last_name' , None ) 
-            dob = data.get('dob' , None ) 
-            about = data.get('about' , None )  
-
+            print("aagya121")
+            data = json.loads(request.body)
+            userEmail = data.get('email' , '' ) 
+            userPassword = make_password(data.get('password' , '' ))
+            first_name = data.get('firstName' , '' ) 
+            last_name = data.get('lastName' , '' ) 
+            dob = data.get('dob' , '' ) 
+            about = data.get('about' , '' )  
+            print("aagya")
             if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None or about == None : 
                 return JsonResponse(status=204, data={'message': 'Something is missing'})
 
+            print("aagya0")
             user_ = User.objects.filter(email=userEmail).first()
-            
+            print("aagya1")
             if user_ : 
                 return JsonResponse({'message': 'Email already exists'} , status = 401 )
             client = "mongodb://localhost:27017/"
             db =  'Netropolis'
             collection = 'user_data'
+            print("aagya2")
             manager = user(client=client , db=db , collection=collection) 
+            print("aagya3")
             manager.insert(email=userEmail , dob = dob , about= about)
+            print("aagya4")
 
             user_ = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 0 ) 
             user_.save()
+            print("saved")
             return JsonResponse(data = {'message' : 'Account Created Successfully.'} , status = 200 )
        
         except Exception as e:
