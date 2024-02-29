@@ -9,8 +9,19 @@ import InputBase from "@mui/material/InputBase";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router-dom";
 
 export default function User() {
+  const navigate = useNavigate();
+
+  const pendingRequestsHandleButtonClick = () => {
+    navigate("/pendingRequests");
+  };
+
+  const pastQuestHandleButtonClick = () => {
+    navigate("/questHistory");
+  };
+
   return (
     <React.Fragment>
       <Header />
@@ -75,6 +86,7 @@ export default function User() {
                 size="large"
                 startIcon={<AssignmentTurnedInIcon />}
                 disableElevation
+                onClick={pastQuestHandleButtonClick}
               >
                 Quest's History
               </Button>
@@ -83,6 +95,7 @@ export default function User() {
                 size="large"
                 startIcon={<ContactSupportIcon />}
                 disableElevation
+                onClick={pendingRequestsHandleButtonClick}
               >
                 Pending Request's
               </Button>

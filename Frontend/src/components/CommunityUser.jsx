@@ -4,14 +4,20 @@ import Stack from "@mui/material/Stack";
 import { Button } from "@mui/material";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
-import Paper from "@mui/material/Paper";
-import InputBase from "@mui/material/InputBase";
-import Divider from "@mui/material/Divider";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
 import CreateIcon from "@mui/icons-material/Create";
+import { useNavigate } from "react-router-dom";
 
 export default function User() {
+  const navigate = useNavigate();
+
+  const pastQuestHandleButtonClick = () => {
+    navigate("/questHistory");
+  };
+
+  const addQuestHandleButtonClick = () => {
+    navigate("/addQuest");
+  };
+
   return (
     <React.Fragment>
       <Header />
@@ -48,6 +54,8 @@ export default function User() {
                 size="large"
                 startIcon={<AssignmentTurnedInIcon />}
                 disableElevation
+                Link
+                onClick={pastQuestHandleButtonClick}
               >
                 Quest's History
               </Button>
@@ -56,16 +64,9 @@ export default function User() {
                 size="large"
                 startIcon={<ContactSupportIcon />}
                 disableElevation
+                onClick={addQuestHandleButtonClick}
               >
                 Pending Request's
-              </Button>
-              <Button
-                startIcon={<CreateIcon />}
-                size="large"
-                variant="contained"
-                color="primary"
-              >
-                Add Quest
               </Button>
             </Stack>
           </div>
