@@ -12,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useHistory } from "react-router-dom";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
@@ -19,7 +20,8 @@ const defaultTheme = createTheme();
 
 export default function SignUp() {
   const [role, setRole] = React.useState("");
-
+  const history = useHistory();
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -29,25 +31,21 @@ export default function SignUp() {
     });
 
     const jsonString = JSON.stringify(jsonData);
-    console.log(jsonString);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+
     try {
-      const response = await fetch('http://127.0.0.1:8000/login/', {
-      method: 'POST',
-      body: jsonString,
-    });
-  
+      const response = await fetch("http://127.0.0.1:8000/login/", {
+        method: "POST",
+        body: jsonString,
+      });
+
       if (response.ok) {
-        const jsonResponse = await response.json();
-        console.log('Server response:', jsonResponse);
+        // Redirect to /login if the response is successful (status code 200)
+        history.push("/login");
       } else {
-        console.error('Server error:', response.statusText);
+        console.error("Server error:", response.statusText);
       }
     } catch (error) {
-      console.error('Error during fetch:', error);
+      console.error("Error during fetch:", error);
     }
   };
 
@@ -123,20 +121,20 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  select
-                  label="Role"
-                  value={role}
-                  onChange={handleRoleChange}
-                  id="role"
-                >
-                  <MenuItem value="manager">Manager</MenuItem>
-                  <MenuItem value="user">User</MenuItem>
-                </TextField>
-              </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    required
+                    fullWidth
+                    select
+                    label="Role"
+                    value={role}
+                    onChange={handleRoleChange}
+                    id="role"
+                  >
+                    <MenuItem value="manager">Manager</MenuItem>
+                    <MenuItem value="user">User</MenuItem>
+                  </TextField>
+                </Grid>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField

@@ -12,11 +12,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useHistory } from "react-router-dom";
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const history = useHistory();
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -24,22 +27,29 @@ export default function SignIn() {
     data.forEach((value, key) => {
       jsonData[key] = value;
     });
-
+  
     const jsonString = JSON.stringify(jsonData);
-    console.log(jsonString);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  
     try {
       const response = await fetch("http://127.0.0.1:8000/login/", {
         method: "POST",
         body: jsonString,
       });
-
+  
       if (response.ok) {
         const jsonResponse = await response.json();
-        console.log("Server response:", jsonResponse);
+        const userType = jsonResponse.user_type;
+  
+        // Define the routes based on user_type
+        let redirectRoute = "/";
+        if (userType === 0) {
+          redirectRoute = "/user";
+        } else if (userType === 1) {
+          redirectRoute = "/community-manager";
+        }
+  
+        // Redirect to the appropriate route based on user_type
+        history.push(redirectRoute);
       } else {
         console.error("Server error:", response.statusText);
       }
