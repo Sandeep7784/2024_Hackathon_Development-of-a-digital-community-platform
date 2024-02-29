@@ -10,9 +10,12 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router-dom";
+import ResultCard from "./SearchResults";
+import { useState } from "react";
 
 export default function User() {
   const navigate = useNavigate();
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const pendingRequestsHandleButtonClick = () => {
     navigate("/pendingRequests");
@@ -20,6 +23,14 @@ export default function User() {
 
   const pastQuestHandleButtonClick = () => {
     navigate("/questHistory");
+  };
+
+  const handleSearchClick = () => {
+    navigate(`/searchResults`);
+  };
+
+  const handleKeywordChange = (event) => {
+    setSearchKeyword(event.target.value);
   };
 
   return (
@@ -53,12 +64,15 @@ export default function User() {
                   sx={{ ml: 1, flex: 1 }}
                   placeholder="Search for the Quests"
                   inputProps={{ "aria-label": "search google maps" }}
+                  value={searchKeyword}
+                  onChange={handleKeywordChange}
                 />
                 <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
                 <IconButton
                   color="primary"
                   sx={{ p: "10px" }}
                   aria-label="directions"
+                  onClick={handleSearchClick}
                 >
                   <SearchIcon />
                 </IconButton>
