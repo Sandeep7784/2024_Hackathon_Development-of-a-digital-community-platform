@@ -89,7 +89,7 @@ function Header(props) {
                 key={item}
                 sx={{ color: "#fff" }}
                 component={Link}
-                to={navLinks[index]}
+                to={userNavLinks[index]}
               >
                 {item}
               </Button>
