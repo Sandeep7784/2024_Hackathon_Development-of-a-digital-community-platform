@@ -156,7 +156,7 @@ export default function SignUp() {
                   id="about"
                   label="About"
                   name="about"
-                  autoComplete="email"
+                  autoComplete="about"
                   type="text"
                 />
               </Grid>
