@@ -120,6 +120,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+<<<<<<< HEAD
               <Grid item xs={12} sm={6}>
                 <Grid item xs={12}>
                   <TextField
@@ -137,6 +138,9 @@ export default function SignUp() {
                 </Grid>
               </Grid>
               <Grid item xs={12} sm={6}>
+=======
+              <Grid item xs={12}>
+>>>>>>> eeee4323e3860133ae4a3340337052a72ace6828
                 <TextField
                   required
                   fullWidth
