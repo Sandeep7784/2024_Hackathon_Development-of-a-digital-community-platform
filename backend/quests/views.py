@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .Mongo import QuestManager
 from users.models import Cookie
 from users.community_manager_mongo import community_manager, client, db, collection
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 MONGO_URI = "mongodb://localhost:27017"
@@ -10,6 +11,7 @@ DATABASE_NAME = "Backend"
 COLLECTION_NAME = "Quests"
 
 # Data Format: {'tasks': [tasksId,....]}
+@csrf_exempt
 def addQuest(request):
     if request.method == 'POST':
         try:
@@ -35,6 +37,7 @@ def addQuest(request):
             return JsonResponse({'message': str(e)}, status=500)
 
 # Data Format: {'questId': questId}
+@csrf_exempt
 def deleteQuest(request):
     if request.method == 'POST':
         try:
@@ -59,6 +62,7 @@ def deleteQuest(request):
             return JsonResponse({'message': str(e)}, status=500)
         
 # Data Format: {'questId': questId, 'taskId': taskId}
+@csrf_exempt
 def insertTask(request):
     if request.method == 'POST':
         try:
@@ -82,6 +86,7 @@ def insertTask(request):
             return JsonResponse({'message': str(e)}, status=500)
 
 # Data Format: {'questId': questId, 'taskId': taskId}
+@csrf_exempt
 def deleteTask(request):
     if request.method == 'POST':
         try:

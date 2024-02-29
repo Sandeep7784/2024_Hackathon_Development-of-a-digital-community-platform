@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from .Mongo import TaskManager
 from users.models import Cookie
+from django.views.decorators.csrf import csrf_exempt
 import json
 
 URI = "mongodb://localhost:27017"
@@ -9,6 +10,7 @@ DATABASE = "Backend"
 COLLECTION = "Tasks"
 
 # Data Format: {'description': description, 'location': location}
+@csrf_exempt
 def addTask(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -23,6 +25,7 @@ def addTask(request):
         return JsonResponse({'taskId': taskId}, status = 200)
 
 # Data Format: {'taskId': taskId}
+@csrf_exempt
 def deleteTask(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))

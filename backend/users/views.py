@@ -10,6 +10,7 @@ nltk.download('wordnet')
 from quests.Mongo import QuestManager
 from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def login(request):
     if request.method == 'POST':
         try:
@@ -77,7 +78,7 @@ def register(request):
             print(f"An error occured: {e}")
             JsonResponse({'message': e})
 
-
+@csrf_exempt
 def register_community_manager(request):
     if request.method == 'POST':
         try: 
@@ -103,6 +104,7 @@ def register_community_manager(request):
             print(f"An error occured: {e}")
             JsonResponse({'message': e})
 
+@csrf_exempt
 def similarity(word1, word2):
     synsets1 = wordnet.synsets(word1)
     synsets2 = wordnet.synsets(word2)
@@ -117,11 +119,11 @@ def similarity(word1, word2):
     else:
         return 0  
 
-
+@csrf_exempt
 def search_query(request):
     if request.method == "POST":
         try:
-            data = json.loads(request.body.decode('utf-8')) 
+            data = json.loads(request.body.decode('utf-8'))
             query = data.get('query' , None ) 
             query_words = query.split(" ")
             # add changes 
