@@ -12,11 +12,16 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useHistory } from "react-router-dom";
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+<<<<<<< HEAD
+  const history = useHistory();
+=======
+>>>>>>> eeee4323e3860133ae4a3340337052a72ace6828
   
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,6 +29,37 @@ export default function SignIn() {
     const jsonData = {};
     data.forEach((value, key) => {
       jsonData[key] = value;
+<<<<<<< HEAD
+    });
+  
+    const jsonString = JSON.stringify(jsonData);
+  
+    try {
+      const response = await fetch("http://127.0.0.1:8000/login/", {
+        method: "POST",
+        body: jsonString,
+      });
+  
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        const userType = jsonResponse.user_type;
+  
+        // Define the routes based on user_type
+        let redirectRoute = "/";
+        if (userType === 0) {
+          redirectRoute = "/user";
+        } else if (userType === 1) {
+          redirectRoute = "/community-manager";
+        }
+  
+        // Redirect to the appropriate route based on user_type
+        history.push(redirectRoute);
+      } else {
+        console.error("Server error:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error during fetch:", error);
+=======
     });
 
     const jsonString = JSON.stringify(jsonData);
@@ -46,6 +82,7 @@ export default function SignIn() {
       }
     } catch (error) {
       console.error('Error during fetch:', error);
+>>>>>>> eeee4323e3860133ae4a3340337052a72ace6828
     }
   };
 
