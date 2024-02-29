@@ -3,11 +3,11 @@ from django.http import JsonResponse
 from django.contrib.auth.hashers import make_password, check_password
 from .models import User, Cookie
 import json
-from user_mongo import user
+from .user_mongo import user
 from nltk.corpus import wordnet
 import nltk
 nltk.download('wordnet')
-from backend.quests.Mongo import QuestManager
+from quests.Mongo import QuestManager
 
 def login(request):
     if request.method == 'POST':
@@ -83,13 +83,13 @@ def register_community_manager(request):
             if userEmail == None or userPassword == None or first_name == None or last_name == None or dob == None  : 
                 return JsonResponse(status=204, data={'message': 'Something is missing'})
 
-            user = User.objects.filter(email=userEmail).first()
+            user1 = User.objects.filter(email=userEmail).first()
             
-            if user : 
+            if user1 : 
                 return JsonResponse({'message': 'Email already exists'} , status = 401 )
 
-            user = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 1 ) 
-            user.save()
+            user1 = User(email = userEmail , password = userPassword , first_name = first_name , last_name = last_name ,user_type = 1 ) 
+            user1.save()
 
         except Exception as e:
             print(f"An error occured: {e}")

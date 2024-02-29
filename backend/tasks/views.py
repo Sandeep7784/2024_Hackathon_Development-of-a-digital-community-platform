@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from Mongo import TaskManager
-from ..users.models import Cookie
+from .Mongo import TaskManager
+from users.models import Cookie
 import json
 
 URI = "mongodb://localhost:27017"

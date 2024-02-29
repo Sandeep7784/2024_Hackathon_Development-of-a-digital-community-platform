@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from Mongo import QuestManager
-from ..users.models import Cookie
-from ..users.community_manager_mongo import community_manager, client, db, collection
+from .Mongo import QuestManager
+from users.models import Cookie
+from users.community_manager_mongo import community_manager, client, db, collection
 import json
 
 MONGO_URI = "mongodb://localhost:27017"

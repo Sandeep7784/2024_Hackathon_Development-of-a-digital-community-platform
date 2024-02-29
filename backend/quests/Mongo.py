@@ -1,6 +1,6 @@
 from pymongo import MongoClient
-from ..tasks.Mongo import TaskManager
-from ..tasks.views import URI, DATABASE, COLLECTION
+from tasks.Mongo import TaskManager
+from tasks.views import URI, DATABASE, COLLECTION
 
 class QuestManager:
     def __init__(self, mongo_uri, database_name, collection_name):
