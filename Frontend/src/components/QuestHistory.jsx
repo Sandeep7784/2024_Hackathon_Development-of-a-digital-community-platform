@@ -184,6 +184,28 @@ const blogCards = [
 ];
 
 function BlogList() {
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+    const cookies = localStorage.getItem('imp_cookie');
+    const user_type = localStorage.getItem('user_type');
+
+    fetch("http://127.0.0.1:8000/history/", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ cookie: cookies, user_type: user_type})
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setHistory(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching history:", error);
+      });
+  }, []);
+
   return (
     <React.Fragment>
       <h2>Quest's History </h2>

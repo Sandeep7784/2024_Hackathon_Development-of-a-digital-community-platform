@@ -64,6 +64,27 @@ const pendingRequests = [
 ];
 
 function PendingRequestsPage() {
+  const [pendingRequests, setPendingRequests] = useState([]);
+
+  useEffect(() => {
+    const cookies = localStorage.getItem('imp_cookie');
+
+    fetch("http://127.0.0.1:8000/user-pending-request/", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ cookie: cookies })
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setPendingRequests(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching pending requests:", error);
+      });
+  }, []);
+
   return (
     <React.Fragment>
       <h1 style={{ marginBottom: "40px" }}>Pending Request's</h1>

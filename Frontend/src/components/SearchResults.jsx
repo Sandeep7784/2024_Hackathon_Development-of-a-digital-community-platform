@@ -77,7 +77,37 @@ const dummySearchResults = [
 ];
 
 const SearchResults = ({ keyword }) => {
-  // Assuming you receive keyword as a prop
+  const [searchResults, setSearchResults] = useState([]);
+  const cookies = localStorage.getItem('imp_cookie');
+
+  useEffect(() => {
+    const fetchSearchResults = async () => {
+      try {
+        await fetch('http://127.0.0.1:8000/search/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({cookie: cookies, query: keyword})
+        });
+        const data = await response.json();
+
+        // Convert object into an array of objects
+        const resultsArray = Object.entries(data).map(([qid, [title, ...tasks]]) => ({
+          qid,
+          title,
+          tasks: tasks.join(', '),
+        }));
+        
+        setSearchResults(resultsArray);
+      } catch (error) {
+        console.error('Error fetching search results:', error);
+      }
+    };
+
+    fetchSearchResults();
+  }, [keyword]);
+
   return (
     <React.Fragment>
       <Header />
@@ -87,11 +117,9 @@ const SearchResults = ({ keyword }) => {
         </h2>
         {dummySearchResults.map((result) => (
           <SearchResultCard
-            key={result.id}
+            key={result.qid}
             title={result.title}
             tasks={result.tasks}
-            town={result.town}
-            onSendRequest={() => handleSendRequest(result.id)}
           />
         ))}
       </div>

@@ -75,7 +75,6 @@ class user :
         else:
             print("User not found")
 
-
 # xy = user(client=client , db = db , collection = collection) 
 # xy.insert("abc1@gmail.com")
 # xy.insert("abc2@gmail.com")
