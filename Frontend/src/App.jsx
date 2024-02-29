@@ -8,6 +8,7 @@ import PendingRequests from "./components/PendingRequests";
 import CommunityUser from "./components/CommunityUser";
 import AddQuest from "./components/AddQuest";
 import SearchResults from "./components/SearchResults";
+import TransferList from "./components/TransferList";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/addQuest" element={<AddQuest />} />
         <Route path="/pendingRequests" element={<PendingRequests />} />
         <Route path="/searchResults" element={<SearchResults />} />
+        <Route path="/transferList" element={<TransferList />} />
       </Routes>
     </Router>
   );
