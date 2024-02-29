@@ -10,12 +10,12 @@ import "./App.css";
 function App() {
   return (
     <React.Fragment>
-      <Header />
-      <SignIn />
+      {/* <Header /> */}
+      {/* <SignIn /> */}
       <SignUp />
       {/* <User /> */}
       {/* <QuestHistory /> */}
-      <PendingRequests />
+      {/* <PendingRequests /> */}
     </React.Fragment>
   );
 }

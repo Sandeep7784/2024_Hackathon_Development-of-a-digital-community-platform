@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import MenuItem from '@mui/material/MenuItem';
+import MenuItem from "@mui/material/MenuItem";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 const defaultTheme = createTheme();
 
 export default function SignUp() {
-  const [role, setRole] = React.useState('');
+  const [role, setRole] = React.useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -50,7 +50,7 @@ export default function SignUp() {
       console.error('Error during fetch:', error);
     }
   };
-  
+
   const handleRoleChange = (event) => {
     setRole(event.target.value);
   };
@@ -122,6 +122,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
+              <Grid item xs={12} sm={6}>
               <Grid item xs={12}>
                 <TextField
                   required
@@ -135,6 +136,29 @@ export default function SignUp() {
                   <MenuItem value="manager">Manager</MenuItem>
                   <MenuItem value="user">User</MenuItem>
                 </TextField>
+              </Grid>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  id="dob"
+                  label="Date of Birth"
+                  name="dob"
+                  autoComplete="family-name"
+                  type="date"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="about"
+                  label="About"
+                  name="about"
+                  autoComplete="email"
+                  type="text"
+                />
               </Grid>
             </Grid>
             <Button
