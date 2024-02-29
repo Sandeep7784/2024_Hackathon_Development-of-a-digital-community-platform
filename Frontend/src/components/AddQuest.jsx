@@ -5,15 +5,15 @@ import Grid from "@mui/material/Grid";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
-import { Fab } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Fab } from "@mui/material";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
 
 function PendingRequests(props) {
   const { info } = props;
   return (
     <React.Fragment>
       <Header />
-
       <Grid item xs={12} md={6}>
         <Card sx={{ display: "flex", position: "relative" }}>
           <CardContent sx={{ flex: 1 }}>
@@ -30,17 +30,14 @@ function PendingRequests(props) {
               Info: {info.info}
             </Typography>
           </CardContent>
-          <Fab
-            color="primary"
-            aria-label="add"
-            sx={{
-              position: "absolute",
-              bottom: 16,
-              right: 16,
-            }}
-          >
-            <AddIcon />
-          </Fab>
+          <Stack direction="row" spacing={2}>
+            <Button variant="contained" color="primary">
+              Approve
+            </Button>
+            <Button variant="contained" color="error">
+              Reject
+            </Button>
+          </Stack>
         </Card>
       </Grid>
     </React.Fragment>
