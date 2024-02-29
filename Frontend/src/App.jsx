@@ -12,10 +12,10 @@ function App() {
     <React.Fragment>
       {/* <Header /> */}
       {/* <SignIn /> */}
-      {/* <SignUp /> */}
+      <SignUp />
       {/* <User /> */}
       {/* <QuestHistory /> */}
-      <PendingRequests />
+      {/* <PendingRequests /> */}
     </React.Fragment>
   );
 }
