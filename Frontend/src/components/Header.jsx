@@ -18,7 +18,13 @@ import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Past Quest's", "Pending Request's", "Logout"];
-const navLinks = ["/user", "/questHistory", "/pendingrequests", "/"];
+const userNavLinks = ["/user", "/questHistory", "/userPendingRequests", "/"];
+const managerNavLinks = [
+  "/community-manager",
+  "/questHistory",
+  "/managerPendingRequests",
+  "/",
+];
 
 function Header(props) {
   const { window } = props;
@@ -38,7 +44,7 @@ function Header(props) {
         {navItems.map((item, index) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <Link to={navLinks[index]}>
+              <Link to={userNavLinks[index]}>
                 <ListItemText primary={item} />
               </Link>
             </ListItemButton>

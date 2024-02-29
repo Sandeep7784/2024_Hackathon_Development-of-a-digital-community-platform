@@ -18,7 +18,7 @@ export default function User() {
   const [searchKeyword, setSearchKeyword] = useState("");
 
   const pendingRequestsHandleButtonClick = () => {
-    navigate("/pendingRequests");
+    navigate("/userPendingRequests");
   };
 
   const pastQuestHandleButtonClick = () => {
@@ -26,7 +26,7 @@ export default function User() {
   };
 
   const handleSearchClick = () => {
-    navigate(`/searchResults`);
+    navigate(`/userSearchResults`);
   };
 
   const handleKeywordChange = (event) => {
